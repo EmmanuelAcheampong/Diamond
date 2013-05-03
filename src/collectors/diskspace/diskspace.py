@@ -189,7 +189,9 @@ class DiskSpaceCollector(diamond.collector.Collector):
         labels = self.get_disk_labels()
         for key, info in self.get_file_systems().iteritems():
             if info['device'] in labels:
-                name = labels[info['device']]
+                name = info['mount_point'].replace('/', '_')
+				 if name == '_':
+                    name = 'root'
             else:
                 name = info['mount_point'].replace('/', '_')
                 name = name.replace('.', '_')
